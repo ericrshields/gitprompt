@@ -26,9 +26,9 @@ use IPC::Open3;
 use Time::HiRes qw(time);
 
 ### prechecks ###
-my $ps0 = $ENV{PS0};
-unless ($ps0) {
-  print "!define PS0!> ";
+my $git_prompt = $ENV{GIT_PROMPT};
+unless ($git_prompt) {
+  print "!define GIT_PROMPT!> ";
   exit 1;
 }
 
@@ -71,9 +71,9 @@ if (@ARGV) {
 
 my %formatvalue = %{gitdata()};
 my $output = "";
-my @ps0 = split(/\%\{(.*?)\%\}/, $ps0);
+my @git_prompt = split(/\%\{(.*?)\%\}/, $git_prompt);
 my $conditional = 0;
-foreach my $part (@ps0) {
+foreach my $part (@git_prompt) {
   if ($conditional) {
     my $keep = 0;
     my $formatter = sub {
